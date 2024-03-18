@@ -1,0 +1,7 @@
+.idea/
+.DS_Store
+__pycache__
+DATA
+data/umr_v5
+data/tmp_ld_12
+data/tmp_ld_20

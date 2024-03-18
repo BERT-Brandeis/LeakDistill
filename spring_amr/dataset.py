@@ -68,6 +68,7 @@ class AMRDataset(Dataset):
                     g.metadata['tok'] = g.metadata['snt']
                 if '@' in g.metadata['tok']:
                     g.metadata['tok'] = re.sub(r'@([^@]+?)@', '\\1', g.metadata['tok'])
+                g.metadata['snt_org'] = g.metadata['snt']
                 g.metadata['snt'] = g.metadata['tok']
         else:
             if raw_data:
@@ -78,6 +79,7 @@ class AMRDataset(Dataset):
             if snt_to_tok:
                 # Making the same input as it was trained
                 for g in graphs:
+                    g.metadata['snt_org'] = g.metadata['snt']
                     g.metadata['snt'] = snttotok.tokenize(g.metadata['snt'])
 
         self.graphs = []

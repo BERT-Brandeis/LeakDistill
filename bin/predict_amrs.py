@@ -11,6 +11,7 @@ def func_add_args(parser):
                         help='Path to AMR files', default='')
     parser.add_argument('--gold-path', type=str, default=ROOT / 'data/tmp/test-gold.txt')
     parser.add_argument('--pred-path', type=str, default=ROOT / 'data/tmp/test-pred.txt')
+    parser.add_argument('--skip-eval', action='store_true')
 
 
 args, config = parser_and_config(project_name="",
@@ -71,5 +72,8 @@ graphs = predict_amrs(
 pieces = [encode(g) for g in graphs]
 pred_path.write_text('\n\n'.join(pieces))
 
-score = compute_smatch(gold_path, pred_path)
-print(f'Smatch: {score:.5f}')
+if not args.skip_eval:
+  score = compute_smatch(gold_path, pred_path)
+  print(f'Smatch: {score:.5f}')
+else:
+  print("Eval Skipped")

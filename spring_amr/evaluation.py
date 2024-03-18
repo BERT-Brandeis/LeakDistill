@@ -82,6 +82,9 @@ def predict_amrs(loader, model, tokenizer, beam_size=1, decoder_start_token_id=0
             metadata = gg.metadata.copy()
             metadata['annotator'] = 'bart-amr'
             metadata['date'] = str(datetime.datetime.now())
+            if 'tok' not in metadata:
+                metadata['tok'] = metadata['snt']
+            metadata['snt'] = metadata.pop('snt_org')
             if 'save-date' in metadata:
                 del metadata['save-date']
             gp.metadata = metadata
